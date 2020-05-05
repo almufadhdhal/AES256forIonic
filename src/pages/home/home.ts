@@ -11,6 +11,9 @@ export class HomePage {
 	private secureKey: string;
 	private secureIV: string;
 
+	username:string;
+    password:string;
+
 	constructor(
 		public navCtrl: NavController,
 		public platform : Platform,
@@ -19,11 +22,17 @@ export class HomePage {
 	{
 		this.generateSecureKeyAndIV(); 
 	}
-
+	
 	async generateSecureKeyAndIV() {
 		this.secureKey = await this.aes256.generateSecureKey('random password 12345'); // Returns a 32 bytes string
 		this.secureIV = await this.aes256.generateSecureIV('random password 12345'); // Returns a 16 bytes string
 	}
+
+	submit1() {
+        this.aes256.encrypt(this.secureKey, this.secureIV, this.username)
+			.then(res => console.log('Encrypted Username: ',res))
+			.catch((error: any) => console.error(error));
+    }
 
 	encrypt() {
 		this.platform.ready().then(() => {
@@ -35,7 +44,7 @@ export class HomePage {
 
 	decrypt() {
 		this.platform.ready().then(() => {
-			this.aes256.decrypt(this.secureKey, this.secureIV, '3MeuaCC2th4MSto7Oyu4Xg==')
+			this.aes256.decrypt(this.secureKey, this.secureIV, '82ZpAbttRo2Z/csbUxxykA==')
 			.then(res => console.log('Decrypted Data : ',res))
 			.catch((error: any) => console.error(error));
 		});
