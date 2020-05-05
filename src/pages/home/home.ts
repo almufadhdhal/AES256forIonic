@@ -29,9 +29,17 @@ export class HomePage {
 	}
 
 	submit1() {
-        this.aes256.encrypt(this.secureKey, this.secureIV, this.username)
+        this.aes256.encrypt('d52bd31fc8dc9c7229842a0e109b12bc', 'c86c3ad000602e39', this.username)
 			.then(res => console.log('Encrypted Username: ',res))
 			.catch((error: any) => console.error(error));
+		console.log('hh : ',this.secureKey);
+	}
+	
+	submit2() {
+        this.aes256.decrypt('d52bd31fc8dc9c7229842a0e109b12bc', 'c86c3ad000602e39', 'NIO1VrwuqGyegcfqF/UcgQ==')
+			.then(res => console.log('Decrypted Username: ',res))
+			.catch((error: any) => console.error(error));
+		console.log('hh : ',this.secureKey);
     }
 
 	encrypt() {
